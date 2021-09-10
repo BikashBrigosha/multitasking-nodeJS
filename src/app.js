@@ -14,6 +14,9 @@ app.get('/', (req, res, next)=>{
 app.get('/generate-random', async (req, res, next)=>{
     const connection = getConnection();
     const studentRepository = connection.getRepository('Student');
+    if(await studentRepository.findOne()){
+        return res.send('data already exists');
+    }
     const config = {
         dictionaries: [names]
     }
